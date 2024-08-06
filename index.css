@@ -42,6 +42,11 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
+.options {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
 button {
     padding: 12px 24px;
     background-color: #007bff;

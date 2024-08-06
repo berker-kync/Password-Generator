@@ -1,8 +1,16 @@
-const characters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9","~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?","/"];
+const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+const numberCharacters = "0123456789";
+const symbolCharacters = "~`!@#$%^&*()-_+={}[]|:;<>,.?/";
 
 document.getElementById('generate-btn').addEventListener('click', function() {
-    const passwordLength = document.getElementById('password-length').value;
-    const password = generatePassword(passwordLength);
+    const length = parseInt(document.getElementById('password-length').value);
+    const includeUppercase = document.getElementById('include-uppercase').checked;
+    const includeLowercase = document.getElementById('include-lowercase').checked;
+    const includeNumbers = document.getElementById('include-numbers').checked;
+    const includeSymbols = document.getElementById('include-symbols').checked;
+
+    const password = generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols);
     document.getElementById('password-display').textContent = password;
     updateStrengthIndicator(password);
 });
@@ -14,7 +22,15 @@ document.getElementById('copy-btn').addEventListener('click', function() {
     });
 });
 
-function generatePassword(length) {
+function generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
+    let characters = '';
+    if (includeUppercase) characters += uppercaseCharacters;
+    if (includeLowercase) characters += lowercaseCharacters;
+    if (includeNumbers) characters += numberCharacters;
+    if (includeSymbols) characters += symbolCharacters;
+    
+    if (characters === '') return '';
+
     let password = '';
     for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
