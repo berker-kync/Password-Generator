@@ -51,6 +51,7 @@ button {
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 10px 5px;
 }
 
 button:hover {
@@ -65,4 +66,9 @@ button:hover {
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+#strength-indicator {
+    margin-top: 10px;
+    font-size: 1em;
 }

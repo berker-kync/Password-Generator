@@ -4,6 +4,14 @@ document.getElementById('generate-btn').addEventListener('click', function() {
     const passwordLength = document.getElementById('password-length').value;
     const password = generatePassword(passwordLength);
     document.getElementById('password-display').textContent = password;
+    updateStrengthIndicator(password);
+});
+
+document.getElementById('copy-btn').addEventListener('click', function() {
+    const password = document.getElementById('password-display').textContent;
+    navigator.clipboard.writeText(password).then(() => {
+        alert('Password copied to clipboard');
+    });
 });
 
 function generatePassword(length) {
@@ -13,4 +21,21 @@ function generatePassword(length) {
         password += characters[randomIndex];
     }
     return password;
+}
+
+function updateStrengthIndicator(password) {
+    const strengthIndicator = document.getElementById('strength-indicator');
+    let strength = 'Weak';
+
+    if (password.length > 8 && 
+        /[A-Z]/.test(password) && 
+        /[a-z]/.test(password) && 
+        /[0-9]/.test(password) && 
+        /[~`!@#$%^&*()\-_=+{}\[\]\|:;<>,.?\/]/.test(password)) {
+        strength = 'Strong';
+    } else if (password.length > 6) {
+        strength = 'Medium';
+    }
+
+    strengthIndicator.textContent = `Strength: ${strength}`;
 }
