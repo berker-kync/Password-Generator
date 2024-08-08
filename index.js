@@ -18,9 +18,17 @@ document.getElementById('generate-btn').addEventListener('click', function() {
 document.getElementById('copy-btn').addEventListener('click', function() {
     const password = document.getElementById('password-display').textContent;
     navigator.clipboard.writeText(password).then(() => {
-        alert('Password copied to clipboard');
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.textContent = 'Copied!';
+        copyBtn.style.backgroundColor = '#28a745'; 
+
+        setTimeout(() => {
+            copyBtn.textContent = 'Copy to Clipboard';
+            copyBtn.style.backgroundColor = '#007bff'; 
+        }, 1500); 
     });
 });
+
 
 function generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols) {
     let characters = '';
