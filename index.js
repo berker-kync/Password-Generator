@@ -26,6 +26,20 @@ document.getElementById('generate-btn').addEventListener('click', function() {
     updateStrengthIndicator(password);
 });
 
+document.getElementById('save-btn').addEventListener('click', function() {
+    const password = document.getElementById('password-display').textContent;
+    if (password) {
+        const blob = new Blob([password], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'password.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+});
+
+
 document.getElementById('copy-btn').addEventListener('click', function() {
     const password = document.getElementById('password-display').textContent;
     navigator.clipboard.writeText(password).then(() => {
